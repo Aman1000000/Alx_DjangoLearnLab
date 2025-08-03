@@ -1,6 +1,5 @@
 import os
 import django
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django-models.settings')
 django.setup()
 
@@ -21,10 +20,11 @@ def get_books_in_library(library_name):
     except Library.DoesNotExist:
         return None
 
-
 def get_librarian_for_library(library_name):
     try:
         library = Library.objects.get(name=library_name)
-        return library.librarian
+        # Fetch the librarian associated with the library
+        librarian = library.librarian  
+        return librarian
     except Library.DoesNotExist:
         return None
