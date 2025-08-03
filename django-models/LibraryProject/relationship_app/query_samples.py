@@ -1,5 +1,7 @@
 import os
 import django
+
+# Set up the Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django-models.settings')
 django.setup()
 
@@ -23,8 +25,18 @@ def get_books_in_library(library_name):
 def get_librarian_for_library(library_name):
     try:
         library = Library.objects.get(name=library_name)
-        # Fetch the librarian associated with the library
-        librarian = library.librarian  
+        # Retrieve the librarian using the library instance
+        librarian = Librarian.objects.get(library=library)  # Modify this line
         return librarian
     except Library.DoesNotExist:
         return None
+    except Librarian.DoesNotExist:
+        return None  # Handle case where no librarian exists for the library
+
+if __name__ == "__main__":
+    library_name = "Your Library Name"  # Replace with your library's name
+    librarian = get_librarian_for_library(library_name)
+    if librarian:
+        print(f"Librarian for {library_name}: {librarian.name}")
+    else:
+        print(f"No librarian found for {library_name}.")
