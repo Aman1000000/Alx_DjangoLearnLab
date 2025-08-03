@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import list_books, LibraryDetailView, user_login, user_logout, user_register  # Ensure all views are imported
-
+from django.contrib.auth.views import LoginView, LogoutView
 urlpatterns = [
     path('books/', list_books, name='list_books'),  # URL for the function-based view
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),  # URL for the class-based view
